@@ -6,9 +6,9 @@
 class SentryGun : public Dynamic
 {
     private:
-    uint16_t range = 10;
+        uint16_t range = 10;
 
-    bool CheckLine(int direction);
+        bool CheckLine(int direction);
 
     public:
         SentryGun(std::string title, MapContainer* mapContainer, SoundCommand* soundCommand);

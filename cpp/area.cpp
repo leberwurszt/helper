@@ -69,6 +69,7 @@ void Area::SetPos(uint32_t lowerX, uint32_t lowerY, uint32_t upperX, uint32_t up
 {
     this->lowerX = lowerX;
     this->lowerY = lowerY;
+
     this->upperX = upperX;
     this->upperY = upperY;
 }
@@ -99,6 +100,7 @@ void Area::PerformAction()
     for(Trigger* trigger : triggerList)
         if(trigger != NULL)
             trigger->Activate();
+
     if(event != NULL)
         event->Activate();
 }
@@ -111,11 +113,14 @@ std::vector<std::string> Area::CreateConfig()
     vector.push_back(title + ":");
     vector.push_back("lower_x=" + std::to_string(lowerX));
     vector.push_back("lower_y=" + std::to_string(lowerY));
+
     vector.push_back("upper_x=" + std::to_string(upperX));
     vector.push_back("upper_y=" + std::to_string(upperY));
+
     for(Trigger* trigger : triggerList)
         if(trigger)
             vector.push_back("trigger=" + trigger->GetTitle());
+            
     std::cout << "area!" << std::endl;
     return vector;
 }

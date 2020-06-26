@@ -160,7 +160,6 @@ class HelperEngine
 
     SDL_Texture* dynamicTextures[MAX_DYNAMIC_TEXTURES];
 
-
     uint32_t configFlags = 0x00000000;
 
     int screenSizeX = 640;
@@ -169,6 +168,7 @@ class HelperEngine
 
     uint16_t screenTileModuloX = 0;
     uint16_t screenTileModuloY = 0;
+
     uint16_t screenTileModuloHalfX = 0;
     uint16_t screenTileModuloHalfY = 0;
 
@@ -185,6 +185,7 @@ class HelperEngine
     SDL_Rect imagePosition;
     Mix_Music* music[MAX_MUSIC_FILES];
     Mix_Chunk* sound[MAX_SOUND_FILES];
+
     SDL_Texture* inventoryTexture = NULL;
     SoundCommand* soundCommand = NULL;
     MessageCommand* messageCommand = NULL;
@@ -215,14 +216,17 @@ class HelperEngine
     uint8_t tileType = 0;
     uint8_t tileValue = 0;
     bool wallAlpha = false;
+
     Dynamic* dynamicEdit = NULL;
     std::map<uint16_t, std::string> dynamicValues;
     SDL_Rect* dynamicEditTableDescription = NULL;
     SDL_Rect* dynamicEditTableValue = NULL;
+
     bool editDynamic = false;
     int16_t editDynamicInput = -1;
     Dynamic* dynamicMove = NULL;
     Dynamic* dynamicCopy = NULL;
+
     uint16_t newDynamicType = 1;
     SDL_Texture* textureTrigger = NULL;
     EditInputType editInputType = EDIT_INPUT_TYPE_NONE;

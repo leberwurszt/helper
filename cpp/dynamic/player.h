@@ -25,6 +25,7 @@ class Player : public Dynamic
         Uint32 ticksMorphRemaining;
         const Uint32 ticksAttackNormal = ticksAttack;
         bool morphed = false;
+
         int score = 0;
         std::list<Item*> inventory;
         int weapon = 0;
@@ -32,8 +33,10 @@ class Player : public Dynamic
     public:
         Player(std::string title, MapContainer* mapContainer, SoundCommand* SoundCommand);
         void Do() override;
+        
         bool Use(uint16_t x, uint16_t y);
         bool Use(uint16_t x, uint16_t y, Item* item);
+
         int GetScore();
         void SetScore(int score);
         void AddScore(int score);
@@ -41,6 +44,7 @@ class Player : public Dynamic
         int GetInventoryCount();
         bool AddToInventory(Item* item);
         Item* GetFromInventory(int index);
+
         bool UseFromInventory(int index);
         bool RemoveFromInventory(int index);
         bool TakeItem();

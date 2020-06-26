@@ -108,6 +108,7 @@ bool Dynamic::IsObstacle()
 double Dynamic::GetMovementPercentage()
 {
     double movementPercentage;
+
     if(SDL_GetTicks() < ticksMoveNext)
         movementPercentage = (double) (ticksMoveNext - SDL_GetTicks()) / (double) ticksMove;
     else
@@ -304,6 +305,7 @@ void Dynamic::Die()
     {
         alive = false;
         soundCommand->PlaySound(soundDie, this);
+
         SetObstacle(false);
         SortDynamicList(mapContainer);
     }
@@ -351,9 +353,6 @@ uint8_t Dynamic::CheckObstacle(uint16_t x, uint16_t y)
         if(dynamicOnTarget)
             if(dynamicOnTarget->IsObstacle())
                 return 2;
-        // mapContainer->dynamicObstacleMap[x][y])
-        //if(mapContainer->dynamicObstacleMap[x][y])
-            
 
     return 0;
 }
@@ -377,8 +376,10 @@ bool Dynamic::Move(int16_t x, int16_t y)
 
             //Uint32 ticksOver = SDL_GetTicks() - ticksMoveNext;
             SetPos(this->x + x, this->y + y);
+
             movementX = x;
             movementY = y;
+
             ticksMoveNext = SDL_GetTicks() + ticksMove;
             return true;
         }
@@ -405,14 +406,17 @@ std::map<uint16_t, std::string> Dynamic::GetValues()
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_X, std::to_string(x)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_Y, std::to_string(y)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_TYPE, std::to_string(type)));
+
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_STATE, std::to_string(state)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_HEALTH, std::to_string(health)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_MAXHEALTH, std::to_string(maxHealth)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_FLYING, std::to_string(flying)));
+    
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_OBSTACLE, std::to_string(obstacle)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_DESTRUCTABLE, std::to_string(destructable)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_DIRECTION, std::to_string(direction)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_DAMAGE, std::to_string(damageAttack)));
+
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_SPEED, std::to_string(ticksMove)));
     values.insert(std::pair<uint16_t, std::string>(DYNAMIC_MAP_ATTACKSPEED, std::to_string(ticksAttack)));
 
@@ -422,6 +426,7 @@ std::map<uint16_t, std::string> Dynamic::GetValues()
 void Dynamic::SetValues(std::map<uint16_t, std::string> values)
 {
     std::map<uint16_t, std::string>::iterator it = values.begin();
+
     for(std::map<uint16_t, std::string>::iterator it = values.begin(); it != values.end(); it++)
     {
         try
@@ -504,13 +509,16 @@ std::vector<std::string> Dynamic::CreateConfig()
     vector.push_back("y=" + std::to_string(y));
     vector.push_back("type=" + std::to_string(type));
     vector.push_back("state=" + std::to_string(state));
+
     vector.push_back("health=" + std::to_string(health));
     vector.push_back("max_health=" + std::to_string(maxHealth));
     vector.push_back("flying=" + BoolToYesNoString(flying));
     vector.push_back("obstacle=" + BoolToYesNoString(obstacle));
+
     vector.push_back("destructable=" + BoolToYesNoString(destructable));
     vector.push_back("direction=" + std::to_string(direction));
     vector.push_back("damage=" + std::to_string(damageAttack));
+
     vector.push_back("speed=" + std::to_string(ticksMove));
     vector.push_back("attack_speed=" + std::to_string(ticksAttack));
     

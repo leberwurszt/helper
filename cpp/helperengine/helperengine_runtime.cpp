@@ -10,6 +10,7 @@ void HelperEngine::MoveCamera()
     {
         int16_t playerMovementX = mapContainer->player->GetMovementX();
         cameraOffsetX = (playerMovementX * mapContainer->player->GetMovementPercentage() * tilesizeX + screenTileModuloHalfX) + tilesizeX;
+
         cameraX = mapContainer->player->GetX() - VIEWSIZE_X / 2 - (cameraOffsetX / tilesizeX - 1);
         cameraOffsetX %= tilesizeX;
 
@@ -42,6 +43,7 @@ void HelperEngine::MoveCamera()
     {
         int16_t playerMovementY = mapContainer->player->GetMovementY();
         cameraOffsetY = (playerMovementY * mapContainer->player->GetMovementPercentage() * tilesizeY + screenTileModuloHalfY) + tilesizeY;
+
         cameraY = mapContainer->player->GetY() - VIEWSIZE_Y / 2 - (cameraOffsetY / tilesizeY - 1);
         cameraOffsetY %= tilesizeY;
 
@@ -93,11 +95,13 @@ int HelperEngine::Run()
         std::cerr << SDL_GetError() << std::endl;
         return -1;
     }
+
     if(!font)
     {
         std::cerr << TTF_GetError() << std::endl;
         return -1;
     }
+
     if(!mapContainer)
     {
         std::cerr << "No map loaded!" << std::endl;
@@ -129,6 +133,7 @@ int HelperEngine::Run()
                 {
                     SwitchMap(trigger->GetNewMap());
                     mapContainer->player->SetPos(trigger->GetNewX(), trigger->GetNewY());
+
                     if(musicPlaying != mapContainer->mapMusic)
                         musicPlaying = 0;
                 }
@@ -189,9 +194,9 @@ int HelperEngine::Run()
 
         // calculate framerate
         fpsTicksLast = fpsTicks;
+
         fpsTicks = std::chrono::high_resolution_clock::now();
         fps = 1. / std::chrono::duration_cast<std::chrono::duration<double>>(fpsTicks - fpsTicksLast).count();
-
     }
     return 0;
 }

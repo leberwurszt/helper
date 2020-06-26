@@ -75,6 +75,7 @@ HelperEngine::HelperEngine(SDL_Window* window, uint32_t flags)
 
     screenTileModuloX = SCREEN_TILE_MODULO_X;
     screenTileModuloY = SCREEN_TILE_MODULO_Y;
+
     screenTileModuloHalfX = screenTileModuloX / 2;
     screenTileModuloHalfY = screenTileModuloY / 2;
 
@@ -82,6 +83,7 @@ HelperEngine::HelperEngine(SDL_Window* window, uint32_t flags)
     {
         tile[i].x = TILESIZE_TILESET_X * (i % (TILESET_WIDTH));
         tile[i].y = TILESIZE_TILESET_Y * (i / (TILESET_WIDTH));
+
         tile[i].w = TILESIZE_TILESET_X;
         tile[i].h = TILESIZE_TILESET_Y;
     }
@@ -101,6 +103,7 @@ HelperEngine::~HelperEngine()
     ClearTextures();
     ClearAudio();
     Mix_CloseAudio();
+
     delete soundCommand;
     delete messageCommand;
 }
@@ -209,6 +212,7 @@ bool HelperEngine::SetDynamicConfig(std::vector<std::string> configVector)
                     
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     transform(type.begin(), type.end(), type.begin(), ::tolower);
                     transform(value.begin(), value.end(), value.begin(), ::tolower);
 
@@ -226,13 +230,16 @@ bool HelperEngine::SetDynamicConfig(std::vector<std::string> configVector)
 		std::cerr << "Error loading config file: " << e.what() << std::endl;
         return false;
 	}
+
     uint8_t i = 0;
+
     for(std::string title : dynamicTitleArray)
     {
         if(title == dynamicType)
         {
             dynamicTypeMap.insert(std::pair<int, int>(index, i));
             dynamicTextureMap.insert(std::pair<int, std::string>(index, sprite));
+
             return true;
         }
         i++;
@@ -264,13 +271,16 @@ Dynamic* HelperEngine::CreateDynamic(std::vector<std::string> dynamicVector, Map
     int* maxHealth = NULL;
     bool* noclip = NULL;
     bool* flying = NULL;
+
     int* state = NULL;
     bool* obstacle = NULL;
     bool* destructable = NULL;
     Direction* direction = NULL;
+
     int* damageAttack = NULL;
     Uint32* ticksMove = NULL;
     Uint32* ticksAttack = NULL;
+
     uint8_t* key = NULL;
     uint8_t* openType = NULL;
     uint8_t* music = NULL;
@@ -293,6 +303,7 @@ Dynamic* HelperEngine::CreateDynamic(std::vector<std::string> dynamicVector, Map
                     
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     transform(type.begin(), type.end(), type.begin(), tolower);
                     transform(value.begin(), value.end(), value.begin(), tolower);
 
@@ -363,6 +374,7 @@ Dynamic* HelperEngine::CreateDynamic(std::vector<std::string> dynamicVector, Map
 
     newDynamic = CreateDynamicFromType(dynamicType, dynamicTypeMap, dynamicTitle, mapContainer, soundCommand);
     // Set values
+
     newDynamic->SetType(dynamicSubtype);
     newDynamic->SetPos(x, y);
     newDynamic->SetMessageCommand(messageCommand);
@@ -404,6 +416,7 @@ Dynamic* HelperEngine::CreateDynamic(std::vector<std::string> dynamicVector, Map
     if(dynamicType == DOOR)
         {
             Door* door = (Door*)newDynamic;
+
             if(key != NULL)
                 door->SetKey(*key);
 
@@ -414,6 +427,7 @@ Dynamic* HelperEngine::CreateDynamic(std::vector<std::string> dynamicVector, Map
     if(dynamicType == GONDOLA)
         {
             Gondola* gondola = (Gondola*)newDynamic;
+
             if(music != NULL)
                 gondola->SetMusic(*music);
         }
@@ -449,13 +463,17 @@ Trigger* HelperEngine::CreateTrigger(std::vector<std::string> triggerVector, Map
     bool switchMap = false;
     bool changeState = false;
     bool teleport = false;
+
     bool onContact = false;
     bool onUse = false;
     bool triggerSwitch = false;
+
     int state1 = 0;
     int state2 = 0;
+
     uint32_t targetX = 0;
     uint32_t targetY = 0;
+
     std::string newMapName = "";
     uint32_t newX;
     uint32_t newY;
@@ -479,6 +497,7 @@ Trigger* HelperEngine::CreateTrigger(std::vector<std::string> triggerVector, Map
                     
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     transform(type.begin(), type.end(), type.begin(), ::tolower);
                     transform(value.begin(), value.end(), value.begin(), ::tolower);
 
@@ -601,6 +620,7 @@ Area* HelperEngine::CreateArea(std::vector<std::string> areaVector, MapContainer
                     
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     transform(type.begin(), type.end(), type.begin(), ::tolower);
                     transform(value.begin(), value.end(), value.begin(), ::tolower);
 
@@ -650,9 +670,11 @@ Item* HelperEngine::CreateItemConfig(std::vector<std::string> itemVector)
     std::string name;
     int collectable = 0;
     bool destructable = false;
+
     int morph = 0;
     int morphTime = 0;
     int health = 0;
+
     int useable = 0;
     int score = 0;
     int key = 0;
@@ -676,6 +698,7 @@ Item* HelperEngine::CreateItemConfig(std::vector<std::string> itemVector)
                     
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     transform(type.begin(), type.end(), type.begin(), ::tolower);
                     transform(value.begin(), value.end(), value.begin(), ::tolower);
 
@@ -762,12 +785,7 @@ Dynamic* HelperEngine::GetDynamicByName(std::string name)
 void HelperEngine::AddDynamic(Dynamic* dynamic, MapContainer* mapContainer)
 {
     mapContainer->dynamicList.push_back(dynamic);
-    //mapContainer->dynamicList.sort(DynamicComparator());
     Dynamic::SortDynamicList(mapContainer);
-    for (Dynamic* dynamic : mapContainer->dynamicList)
-    {
-        std::cout << dynamic->GetTitle() << std::endl;
-    }
 }
 
 // Add trigger to list in map container
@@ -807,6 +825,7 @@ void HelperEngine::RemoveDynamic(Dynamic* dynamic)
     if (dynamic != NULL && dynamic != mapContainer->player)
     {
         mapContainer->dynamicList.erase(std::remove(mapContainer->dynamicList.begin(), mapContainer->dynamicList.end(), dynamic), mapContainer->dynamicList.end());
+
         if(dynamic == dynamicEdit)
         {
             editDynamic = false;
@@ -822,6 +841,7 @@ bool HelperEngine::DynamicTitleExist(std::string title)
     for(Dynamic* dynamic : mapContainer->dynamicList)
         if(dynamic->GetTitle() == title)
             return true;
+
     return false;
 }
 
@@ -851,7 +871,6 @@ void HelperEngine::SetMap(std::string name)
             return;
         }
     std::cerr << "map \"" << name << "\" does not exist!" << std::endl;
-
 }
 
 // set active map by mapContainer
@@ -861,6 +880,7 @@ void HelperEngine::SetMap(MapContainer* mapContainer)
     
     ClearMapTextures(mapContainer);
     LoadMapTextures(mapContainer);
+
     SetPlayer(new Player("player", mapContainer, soundCommand), mapContainer);
     SDL_SetWindowTitle(window, ("Helper Quest - " + mapContainer->map->GetTitle()).c_str());
 }
@@ -876,6 +896,7 @@ void HelperEngine::SwitchMap(std::string name)
     // if map is not loaded, load it
     std::cout << "Loading map " << name << std::endl;
     MapContainer* mapContainer = LoadMap(name);
+
     if(mapContainer != NULL)
     {
         AddMap(mapContainer);
@@ -889,14 +910,16 @@ void HelperEngine::SwitchMap(MapContainer* mapContainer)
 {
     Player* player = this->mapContainer->player;
     player->SetMapContainer(mapContainer);
+
     this->mapContainer->dynamicList.erase(std::remove(this->mapContainer->dynamicList.begin(), this->mapContainer->dynamicList.end(), player), this->mapContainer->dynamicList.end());
     ClearMapTextures(this->mapContainer);
+
     this->mapContainer = mapContainer;
     LoadMapTextures(mapContainer);
+
     mapContainer->player = player;
     AddDynamic(player, mapContainer);
     SDL_SetWindowTitle(window, ("Helper Quest - " + mapContainer->map->GetTitle()).c_str());
-
 }
 
 void HelperEngine::DeleteMap(MapContainer* mapContainer)
@@ -976,6 +999,7 @@ void HelperEngine::EnumerateName(Dynamic* dynamic)
 
     std::string tempNumber = "";
     std::string tempName = "";
+
     for(int i = 0; i < name.length(); i++)
         if(isdigit(name[i]))
             tempNumber += name[i];
@@ -999,10 +1023,9 @@ MapContainer* HelperEngine::CreateMap(std::string name, std::string tileset)
     MapContainer* mapContainer = new MapContainer();
     mapContainer->map = new Map(64, 64);
     mapContainer->map->SetTitle(name);
+
     mapContainer->map->SetTileset(tileset);
     mapContainer->map->SetStart(1, 1);
-    //mapContainer->map->Save(MAP_PATH + mapContainer->mapName + "/map.hex");
 
     return mapContainer;
-
 }

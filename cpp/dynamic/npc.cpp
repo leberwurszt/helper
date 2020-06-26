@@ -61,7 +61,6 @@ void Npc::Do()
                 // If player is 1 square away, attack
                 if(mapContainer->player->GetY() == y)
                 {
-
                     if(mapContainer->player->GetX() == x - 1)
                         Attack(x - 1, y, damageAttack);
                     else if(mapContainer->player->GetX() == x + 1)

@@ -24,6 +24,7 @@ void Fireball::Do()
 {
     int moveX = 0;
     int moveY = 0;
+
     switch(direction)
     {
         case NORTH:
@@ -47,10 +48,12 @@ void Fireball::Do()
     {
         sprite = 1;
         Move(moveX, moveY);
+
         if((CheckObstacle(x, y)))
         {
             Attack(x, y, 50);
             soundCommand->PlaySound(soundDie, this);
+
             state = 2;
             ticksMorphNext = SDL_GetTicks();
         }
@@ -59,8 +62,10 @@ void Fireball::Do()
     {
         Uint32 ticksOver = SDL_GetTicks() - ticksMorphNext;
         sprite = (sprite + (1 + ticksOver / ticksMorph)) % 5;
+
         if(sprite == 0)
             state = 0;
+            
         ticksMorphNext = SDL_GetTicks() + ticksMorph - ticksOver % ticksMorph;
     }
 }

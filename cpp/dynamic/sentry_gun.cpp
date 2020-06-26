@@ -22,6 +22,7 @@ bool SentryGun::CheckLine(int direction)
 {
     int16_t lineX = this->x;
     int16_t lineY = this->y;
+
     for(uint16_t i = 0; i < range; i++)
     {
         switch(direction)
@@ -77,6 +78,7 @@ bool SentryGun::Attack(uint16_t x, uint16_t y, Direction direction)
         mapContainer->dynamicList.push_front(fireball);
 
         ticksAttackNext = SDL_GetTicks() + ticksAttack;
+        
         return true;
     }
     else

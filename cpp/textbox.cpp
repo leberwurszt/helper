@@ -27,6 +27,7 @@ bool Textbox::Append(std::string text)
     {
         this->text += text;
         editPointer = this->text.length();
+
         return true;
     }
     else
@@ -40,6 +41,7 @@ bool Textbox::Insert(std::string text)
         std::string newString = this->text.substr(0, editPointer);
         newString += text;
         newString += this->text.substr(editPointer, this->text.length() - editPointer);
+
         editPointer += text.length();
         this->text = newString;
         return true;
@@ -54,8 +56,10 @@ bool Textbox::Delete(int length)
     {
         std::string newString = this->text.substr(0, editPointer - length);
         newString += this->text.substr(editPointer, this->text.length() - editPointer);
+
         this->text = newString;
         editPointer -= length;
+
         return true;
     }
     else
@@ -83,6 +87,7 @@ std::string Textbox::Show()
 {
     std::string stringShow = text.substr(0, editPointer);
     stringShow += '_';
+
     stringShow += text.substr(editPointer, text.length() - editPointer);
     return stringShow;
 
@@ -105,6 +110,7 @@ bool Textbox::SetText(std::string text)
     {
         this->text = text;
         editPointer = this->text.length();
+        
         return true;
     }
     else

@@ -83,6 +83,7 @@ void HelperEngine::ControlsEdit()
     int input = 0;
     int inputX = 0;
     int inputY = 0;
+
     mouseTileX = cameraX + (mouseX - cameraOffsetX) / tilesizeX;
     mouseTileY = cameraY + (mouseY - cameraOffsetY) / tilesizeY;
     const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -207,10 +208,10 @@ void HelperEngine::ControlsEdit()
                 editDynamicInput = -1;
                 for (uint16_t i = 0; i < dynamicValues.size(); i++)
                 {
-                    if (
-                        mouseX > dynamicEditTableValue[i].x && mouseX < (dynamicEditTableValue[i].x + dynamicEditTableValue[i].w) && mouseY > dynamicEditTableValue[i].y && mouseY < (dynamicEditTableValue[i].y + dynamicEditTableValue[i].h))
+                    if (mouseX > dynamicEditTableValue[i].x && mouseX < (dynamicEditTableValue[i].x + dynamicEditTableValue[i].w) && mouseY > dynamicEditTableValue[i].y && mouseY < (dynamicEditTableValue[i].y + dynamicEditTableValue[i].h))
                     {
                         uint16_t k = 0;
+
                         for (std::map<uint16_t, std::string>::iterator it = dynamicValues.begin(); it != dynamicValues.end(); ++it, ++k)
                             if (k == i)
                                 editDynamicInput = it->first;
@@ -283,6 +284,7 @@ void HelperEngine::ControlsEdit()
                 {
                     Dynamic *newDynamic = new Dynamic(*dynamicCopy);
                     EnumerateName(newDynamic);
+
                     newDynamic->SetPos(mouseTileX, mouseTileY);
                     AddDynamic(newDynamic, mapContainer);
                 }
@@ -309,8 +311,10 @@ void HelperEngine::ControlsEdit()
             case 3: // Dynamic
                 Dynamic *newDynamic = CreateDynamicFromType(tileValue, dynamicTypeMap, mapContainer, soundCommand);
                 EnumerateName(newDynamic);
+
                 newDynamic->SetPos(mouseTileX, mouseTileY);
                 newDynamic->SetType((DynamicType)tileValue);
+
                 AddDynamic(newDynamic, mapContainer);
                 break;
             }
@@ -502,6 +506,7 @@ void HelperEngine::ControlsTextInput()
             {
                 editDynamicTextBoxes[editDynamicInput]->MovePointer(-1);
             }
+
             if(editInputType)
             {
                 editInputTextBoxes[editInputType]->MovePointer(-1);
@@ -513,6 +518,7 @@ void HelperEngine::ControlsTextInput()
             {
                 editDynamicTextBoxes[editDynamicInput]->MovePointer(1);
             }
+            
             if(editInputType)
             {
                 editInputTextBoxes[editInputType]->MovePointer(1);
@@ -531,6 +537,7 @@ void HelperEngine::ControlsTextInput()
                     case EDIT_INPUT_TYPE_TILESET:
                         mapContainer->map->SetTileset(editInputTextBoxes[EDIT_INPUT_TYPE_TILESET]->GetText());
                         ClearMapTextures(mapContainer);
+
                         LoadMapTextures(mapContainer);
                         editInputType = EDIT_INPUT_TYPE_NONE;
                     break;
@@ -554,6 +561,7 @@ void HelperEngine::ControlsTextInput()
                     case EDIT_INPUT_TYPE_OPEN_MAP:
                         MapContainer* newMap;
                         newMap = LoadMap(editInputTextBoxes[EDIT_INPUT_TYPE_OPEN_MAP]->GetText());
+
                         if(newMap)
                         {
                             DeleteMap(mapContainer);
@@ -571,13 +579,8 @@ void HelperEngine::ControlsTextInput()
                         SaveMap();
                         editInputType = EDIT_INPUT_TYPE_NONE;
                     break;
-
                 }
-                
             }
-
-
-
             break;
         }
         break;

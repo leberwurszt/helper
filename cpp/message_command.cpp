@@ -1,10 +1,14 @@
 #include "message_command.h"
 
 MessageCommand::MessageCommand()
-{}
+{
+    
+}
 
 MessageCommand::~MessageCommand()
-{}
+{
+
+}
 
 std::string MessageCommand::PopMessage()
 {

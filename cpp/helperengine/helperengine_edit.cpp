@@ -9,8 +9,10 @@ void HelperEngine::FinishEditDynamic()
     
     for(std::map<uint16_t, std::string>::iterator it = dynamicValues.begin(); it != dynamicValues.end(); ++it)
         it->second = editDynamicTextBoxes[it->first]->GetText();
+
     if(dynamicEdit != NULL)
         dynamicEdit->SetValues(dynamicValues);
+
     dynamicValues.clear();
     dynamicEdit = NULL;
 
@@ -50,9 +52,9 @@ bool HelperEngine::PrepareEditDynamic()
         dynamicEditTableDescription = new SDL_Rect[dynamicValues.size()];
         dynamicEditTableValue = new SDL_Rect[dynamicValues.size()];
 
-        
         int i = 0;
         editDynamicTextBoxes = new Textbox*[256];
+
         for(int i = 0; i < 256; i++)
             editDynamicTextBoxes[i] = NULL;
 
@@ -71,7 +73,6 @@ bool HelperEngine::PrepareEditDynamic()
             editDynamicTextBoxes[it->first] = new Textbox();
             editDynamicTextBoxes[it->first]->SetText(it->second);
         }
-
         return true;
     }
     else
@@ -103,7 +104,9 @@ void HelperEngine::EditDynamic(Dynamic* dynamic)
 
         SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
         rectText = dynamicEditTableDescription[i];
+
         std::string description = "";
+
         switch(it->first)
         {
             case DYNAMIC_MAP_TITLE:
@@ -163,11 +166,10 @@ void HelperEngine::EditDynamic(Dynamic* dynamic)
                 break;
         }
         
-
         DrawText(font, description, &rectText, &fontColour);
 
-        
         std::string value;
+
         if(editDynamicInput == it->first)
         {
             value = editDynamicTextBoxes[it->first]->Show();
@@ -183,7 +185,6 @@ void HelperEngine::EditDynamic(Dynamic* dynamic)
 
         SDL_SetRenderDrawColor(render, 0, 255, 255, SDL_ALPHA_OPAQUE);
         SDL_RenderDrawRect(render, &dynamicEditTableValue[i]);
-
 
         SDL_SetRenderDrawColor(render, 255, 255, 255, SDL_ALPHA_OPAQUE);
 

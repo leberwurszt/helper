@@ -34,12 +34,14 @@ void HelperEngine::SetMusicVolume(uint8_t volume)
 bool HelperEngine::PlaySounds()
 {
     Mix_Volume(0,128);
-    std::pair<int, Dynamic*> s = std::pair<int, Dynamic*>(0, NULL);
+    std::pair<int, Dynamic*> s = std::pair<int, Dynamic*>(0, NULL); // declare s
     int sf = -1;
+
     while(sf != 0)
     {
         s = soundCommand->PopSound();
         sf = s.first;
+
         if(sf != 0)
         {
             // checks which channel is free and sets channel

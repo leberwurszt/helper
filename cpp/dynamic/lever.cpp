@@ -27,6 +27,7 @@ void Lever::Do()
 bool Lever::GetUsed()
 {
     soundCommand->PlaySound(LEVER_USE, this);
+
     if(state == 1)
         state = 2;
     else
@@ -37,5 +38,6 @@ bool Lever::GetUsed()
         if(trigger->GetX() == x && trigger->GetY() == y)
             trigger->Activate();
     }
+    
     return true;
 }

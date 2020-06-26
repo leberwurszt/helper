@@ -73,6 +73,7 @@ class Map
 
 		uint16_t GetSizeX();
 		uint16_t GetSizeY();
+
 		uint16_t GetStartX();
 		uint16_t GetStartY();
 
@@ -99,5 +100,4 @@ class Map
 
 		bool Load(std::string filename);
 		bool Save(std::string filename);
-
 };

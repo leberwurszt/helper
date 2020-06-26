@@ -31,6 +31,7 @@ class Trigger
 
     uint32_t type;
     std::string title;
+
     std::string newMapName;
     MapContainer* mapContainer = NULL;
 
@@ -42,6 +43,7 @@ class Trigger
 
     bool triggered = false;
     bool active = false;
+
     Dynamic* targetDynamic = NULL;
     int state1 = 0;
     int state2 = 0;
@@ -54,6 +56,7 @@ class Trigger
     Trigger(std::string title, int type, MapContainer* mapContainer);
     void SetMap(std::string newMapName, uint32_t newX, uint32_t newY);
     void SetPos(uint32_t x, uint32_t y);
+
     void SetTargetDynamic(Dynamic* targetDynamic);
     void SetState1(int state);
     void SetState2(int state);
@@ -61,8 +64,10 @@ class Trigger
     std::string GetTitle();
     uint32_t GetX();
     uint32_t GetY();
+
     uint32_t GetNewX();
     uint32_t GetNewY();
+
     int GetType();
 
     void Do();
@@ -70,6 +75,7 @@ class Trigger
 
     bool IsTriggered();
     bool IsActive();
+    
     std::string GetNewMap();
 
     std::vector<std::string> CreateConfig();

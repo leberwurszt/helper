@@ -24,10 +24,12 @@ void PressurePlate::Do()
     if(CheckObstacle(x, y))
     {
         state = 2;
+
         if(!switched)
         {
             soundCommand->PlaySound(PRESSURE_PLATE_USE, this);
             TriggerIt();
+            
             switched = true;
         }
     }

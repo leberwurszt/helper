@@ -34,6 +34,7 @@ void Spider::Do()
     switch(state)
     {
         case SPIDER_STATE_NORMAL:
+        
             if(playerDist < 5 && mapContainer->player->IsAlive())
             {
                 soundCommand->PlaySound(SPIDER_ENEMY_DETECTED, this);
@@ -43,6 +44,7 @@ void Spider::Do()
             break;
 
         case SPIDER_STATE_ANGRY:
+
             if(!mapContainer->player->IsAlive()) // If player is dead, NPC is normal again
                 state = SPIDER_STATE_NORMAL;
             else

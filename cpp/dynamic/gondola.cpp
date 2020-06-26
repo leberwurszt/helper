@@ -93,6 +93,7 @@ void Gondola::SetValues(std::map<uint16_t, std::string> values)
 void Gondola::PrintValues()
 {
     Dynamic::PrintValues();
+    
     std::cout <<
         "Music: " << (int) music << std::endl;
 }

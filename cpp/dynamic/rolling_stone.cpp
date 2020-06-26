@@ -80,6 +80,7 @@ void RollingStone::Do()
         {
             ticksMorph = (ticksMove * M_PI) / 8;
             Uint32 ticksOver = SDL_GetTicks() - ticksMorphNext;
+            
             rollAnimationSprite = 1 + (rollAnimationSprite + (ticksOver / ticksMorph)) % 8;
             ticksMorphNext = SDL_GetTicks() + ticksMorph - ticksOver % ticksMorph;
         }

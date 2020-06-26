@@ -23,8 +23,10 @@ struct Weapon
     std::string name = "";
     uint16_t maxAmmo = 0;
     uint16_t ammo = 0;
+
     WeaponType weaponType = WEAPON_TYPE_NONE;
     AmmoType AmmoType = AMMO_TYPE_NONE;
     int16_t damage = 0;
+    
     DynamicType projectile = DYNAMIC;
 };

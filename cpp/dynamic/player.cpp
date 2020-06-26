@@ -55,8 +55,10 @@ void Player::Do()
             case PLAYER_STATE_HONKLER:
                 soundCommand->PlayMusic(2);
                 ticksAttack = 0;
+
                 Attack(x + 1, y, damageAttack);
                 Attack(x - 1, y, damageAttack);
+                
                 Attack(x, y + 1, damageAttack);
                 Attack(x, y - 1, damageAttack);
 
@@ -75,15 +77,15 @@ void Player::Do()
 bool Player::Use(uint16_t x, uint16_t y)
 {
     bool success = true;
-    //if(SDL_GetTicks() > ticksAttackNext && SDL_GetTicks() >= ticksMoveNext && alive)
-    {
+
+
         for(Dynamic* dynamic : mapContainer->dynamicList)
             if(dynamic->GetX() == x && dynamic->GetY() == y)
                 success = dynamic->GetUsed();
                 
         if(success)
             ticksAttackNext = SDL_GetTicks() + ticksAttack;
-    }
+
     return success;
 }
 bool Player::Use(uint16_t x, uint16_t y, Item* item)
@@ -122,17 +124,21 @@ bool Player::AddToInventory(Item* item)
 Item* Player::GetFromInventory(int index)
 {
     int i = 0;
+
     for(Item* item : inventory)
         if(i++ == index)
             return item;
+
     return NULL;
 }
 
 bool Player::UseFromInventory(int index)
 {
     Item* item = GetFromInventory(index);
+
     if(item == NULL)
         return false;
+
     if(item->key == 0)
     {
         ChangeHealth(item->health);
@@ -151,6 +157,7 @@ bool Player::UseFromInventory(int index)
         bool success = false;
         Dynamic* left = GetDynamicByCoord(x - 1, y, mapContainer);
         Dynamic* right = GetDynamicByCoord(x + 1, y, mapContainer);
+
         Dynamic* up = GetDynamicByCoord(x, y - 1, mapContainer);
         Dynamic* down = GetDynamicByCoord(x, y + 1, mapContainer);
 
@@ -176,6 +183,7 @@ bool Player::UseFromInventory(int index)
 bool Player::RemoveFromInventory(int index)
 {
     int i = 0;
+
     for(Item* item : inventory)
         if(i++ == index)
         {
@@ -192,9 +200,9 @@ bool Player::TakeItem()
     // check if item is on players position
     Item* item = new Item(mapContainer->itemConfig[mapContainer->map->GetItem(this->x, this->y)]);
     item->index = mapContainer->map->GetItem(this->x, this->y);
+
     if(item != NULL)
     {
-        //std::cout << itemConfig.name << std::endl;
         if(item->collectable)
             if(AddToInventory(item))
             {

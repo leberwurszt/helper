@@ -100,6 +100,7 @@ bool Door::Open()
         isOpen = true;
         state = 2;
         SetObstacle(false);
+
         return true;
     }
     else
@@ -112,8 +113,10 @@ bool Door::Close()
     {
         soundCommand->PlaySound(DOOR_OPEN, this);
         isOpen = false;
+        
         state = 1;
         SetObstacle(true);
+
         return true;
     }
     else

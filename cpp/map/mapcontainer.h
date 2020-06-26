@@ -17,12 +17,16 @@ struct MapContainer
 {
     std::string mapDir = "";
     Map* map = NULL;
+    
     uint8_t mapMusic = 1;
     Player* player = NULL;
+
     std::list<Dynamic*> dynamicList;
     std::list<Trigger*> triggerList;
+
     std::list<Area*> areaList;
     std::list<Event*> eventList;
+
     Item itemConfig[256];
     SDL_Texture* textureWall = NULL;
     SDL_Texture* textureFloor = NULL;

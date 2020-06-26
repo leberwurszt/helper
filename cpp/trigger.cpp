@@ -148,17 +148,23 @@ std::vector<std::string> Trigger::CreateConfig()
     vector.push_back(title + ":");
     vector.push_back("x=" + std::to_string(x));
     vector.push_back("y=" + std::to_string(y));
+
     if(targetDynamic)
         vector.push_back("target_name=" + targetDynamic->GetTitle());
+
     vector.push_back("switch_map=" + BoolToYesNoString(type & TRIGGER_SWITCH_MAP));
     vector.push_back("change_state=" + BoolToYesNoString(type & TRIGGER_CHANGE_STATE));
     vector.push_back("teleport=" + BoolToYesNoString(type & TRIGGER_TELEPORT));
+
     vector.push_back("on_contact=" + BoolToYesNoString(type & TRIGGER_ON_CONTACT));
     vector.push_back("on_use=" + BoolToYesNoString(type & TRIGGER_ON_USE));
     vector.push_back("switch=" + BoolToYesNoString(type & TRIGGER_SWITCH));
+
     vector.push_back("state_1=" + std::to_string(state1));
     vector.push_back("state_2=" + std::to_string(state2));
+
     vector.push_back("new_map=" + newMapName);
+    
     vector.push_back("new_x=" + std::to_string(newX));
     vector.push_back("new_y=" + std::to_string(newY));
 

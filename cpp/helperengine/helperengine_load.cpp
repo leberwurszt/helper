@@ -12,6 +12,7 @@ bool HelperEngine::LoadAudio()
     for(std::map<uint16_t, std::string>::iterator it = soundMap.begin(); it != soundMap.end(); it++)
     {
         sound[it->first] = Mix_LoadWAV((SOUND_PATH + it->second).c_str());
+
         if(sound[it->first] == NULL)
         {
             printf("Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError());
@@ -22,6 +23,7 @@ bool HelperEngine::LoadAudio()
     for(std::map<uint16_t, std::string>::iterator it = musicMap.begin(); it != musicMap.end(); it++)
     {
         music[it->first] = Mix_LoadMUS((MUSIC_PATH + it->second).c_str());
+
         if(sound[it->first] == NULL)
         {
             printf("Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
@@ -39,6 +41,7 @@ MapContainer* HelperEngine::LoadMap(std::string mapName)
     ClearMap(mapContainer);
 
     mapContainer->map = new Map();
+
     if(mapContainer->map->Load(MAP_PATH + mapName + "/map.hex"))
     {
         for(std::vector<std::string> v : LoadConfig(MAP_PATH + mapName + "/dynamic.config"))
@@ -54,6 +57,7 @@ MapContainer* HelperEngine::LoadMap(std::string mapName)
         mapContainer->mapDir = mapName;
         
         int i = 0;
+
         for(std::vector<std::string> v : LoadConfig("items.config"))
             mapContainer->itemConfig[i++] = *CreateItemConfig(v);
 
@@ -67,7 +71,6 @@ MapContainer* HelperEngine::LoadMap(std::string mapName)
         }
         return NULL;
     }
-    
 }
 
 bool HelperEngine::LoadMapTextures(MapContainer* mapContainer)
@@ -114,11 +117,11 @@ bool HelperEngine::LoadGame(std::string gameName)
                     transform(type.begin(), type.end(), type.begin(), ::tolower);
 
                     if(type == "start_map")
-                        {
-                                AddMap(LoadMap(value));
-                                SetMap(value);
-                                mapSet = true;
-                        }
+                    {
+                        AddMap(LoadMap(value));
+                        SetMap(value);
+                        mapSet = true;
+                    }
                 }
             }
 
@@ -131,7 +134,9 @@ bool HelperEngine::LoadGame(std::string gameName)
                     std::istringstream iss(line);
                     getline(iss, type, '=');
                     getline(iss, value, '=');
+
                     uint8_t musicValue = std::stoi(type);
+                    
                     if(musicValue > 0 && musicValue < MAX_MUSIC_FILES)
                     {
                         musicMap.insert(std::pair<uint16_t, std::string>(musicValue, value));

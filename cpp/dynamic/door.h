@@ -27,8 +27,10 @@ class Door : public Dynamic
 
         bool GetUsed() override;
         bool GetUsed(Item* item) override;
+        
         bool Open();
         bool Close();
+
         void Do() override;
         std::vector<std::string> CreateConfig() override;
 

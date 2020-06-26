@@ -45,8 +45,10 @@ bool HelperEngine::SaveDynamics(std::string mapName, std::list<Dynamic*> dynamic
         if(dynamic->GetType() != 1) // not player
         {
             dynamicVector = dynamic->CreateConfig();
+
             for(std::string line : dynamicVector)
                 configVector.push_back(line);
+
             configVector.push_back("");
         }
     }
@@ -80,6 +82,7 @@ bool HelperEngine::SaveTriggers(std::string mapName, std::list<Trigger*> trigger
         triggerVector = trigger->CreateConfig();
         for(std::string line : triggerVector)
             configVector.push_back(line);
+            
         configVector.push_back("");
     }
 
