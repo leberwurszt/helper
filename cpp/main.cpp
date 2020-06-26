@@ -20,9 +20,12 @@ int main(int argc, char *argv[])
 
     int screenSizeX = 640;
     int screenSizeY = 480;
+
     int screenRefresh = 60;
     int screenPixelFormat = 32;
+
     int musicVolume = 128;
+
     bool screenFull = false;
     bool editMode = false;
     bool showFPS = false;
@@ -31,16 +34,19 @@ int main(int argc, char *argv[])
     bool startGame = true;
     bool accelerated = true;
     bool vsync = true;
+
     uint32_t flags = 0x00000000;
     MapContainer* mapContainer = NULL;
 
     std::string mapName = "";
     std::string gameName = "basehelper";
+    HelperEngine* helper = NULL;
 
-    // arguments
+    // search arguments
     for(int i = 1; i < argc; i++)
     {
         std::string arg = argv[i];
+
         if(arg == "-m" || arg == "--map")                                       // map name
             if(i < argc - 1)
             {
@@ -84,9 +90,7 @@ int main(int argc, char *argv[])
         {
             std::cerr << arg << " is not a valid argument." << std::endl;
             return -1;
-        }
-
-                
+        }           
     }
 
     // enter map name
@@ -112,8 +116,10 @@ int main(int argc, char *argv[])
         for (std::string line : fileVector)
         {
             std::istringstream iss(line);
+
             getline(iss, type, '=');
             getline(iss, value, '=');
+
             transform(type.begin(), type.end(), type.begin(), ::tolower);
             transform(value.begin(), value.end(), value.begin(), ::tolower);
 
@@ -145,10 +151,8 @@ int main(int argc, char *argv[])
                 playMusic = (value == "yes") ? true : false;
 
             if(type == "sounds")
-                playSounds = (value == "yes") ? true : false;
-            
+                playSounds = (value == "yes") ? true : false; 
         }
-
     }
 
 	catch(const std::exception& e)
@@ -197,7 +201,7 @@ int main(int argc, char *argv[])
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     // initialize Engine
-    HelperEngine* helper = new HelperEngine(window, flags);
+    helper = new HelperEngine(window, flags);
 
     if(helper != NULL)
     {
@@ -210,8 +214,10 @@ int main(int argc, char *argv[])
             {
                 std::cout << "Map " << mapName << " does not exist, creating..." << std::endl;
                 std::string tileset;
+
                 std::cout << "Tileset: ";
                 std::cin >> tileset;
+
                 mapContainer = helper->CreateMap(mapName, tileset);
                 std::cout << "Map created." << std::endl;
             }
@@ -225,8 +231,10 @@ int main(int argc, char *argv[])
             {
                 std::cout << "Hanlo" << std::endl;
                 helper->AddMap(mapContainer);
+
                 std::cout << "Hanloo" << std::endl;
                 helper->SetMap(mapContainer);
+
                 std::cout << "Hanlooo" << std::endl;
                 helper->SetMusicVolume(musicVolume);
                 std::cout << "Hanloooo" << std::endl;
@@ -238,12 +246,13 @@ int main(int argc, char *argv[])
         {
             helper->LoadGame("basehelper");
             Run(helper);
-        }
-        
+        }     
     }
 
+    // Exit
     SDL_DestroyWindow(window);
     SDL_Quit();
+
     delete helper;
     std::cout << "FUG :DDDDDDDD" << std::endl;
 
