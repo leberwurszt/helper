@@ -64,6 +64,7 @@ void Spurdo::Do()
         }
 
         // Spurdish Spurdo Spärde roll animation
+        // wtf this is nerdy stuff
         if(SDL_GetTicks() >= ticksMorphNext)
         {
             Uint32 ticksOver = SDL_GetTicks() - ticksMorphNext;

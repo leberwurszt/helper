@@ -298,19 +298,23 @@ class HelperEngine
     
     // get/add/set functions
     MapContainer* GetMapContainer();
+
     void AddDynamic(Dynamic* dynamic, MapContainer* mapContainer);
     void AddTrigger(Trigger* trigger, MapContainer* mapContainer);
     void AddArea(Area* area, MapContainer* mapContainer);
     void AddMap(MapContainer* mapContainer);
+
     void SetPlayer(Player* player, MapContainer* mapContainer);
     void SetMap(std::string name);
     void SetMap(MapContainer* mapContainer);
+
     void SwitchMap(std::string name);
     void SwitchMap(MapContainer* mapContainer);
     void SetMusicVolume(uint8_t volume);
 
     void RemoveDynamic(Dynamic* dynamic);
     void RemoveMap(MapContainer* mapContainer);
+
     void DeleteMap(MapContainer* mapContainer);
     bool DynamicTitleExist(std::string title);
 
@@ -322,9 +326,11 @@ class HelperEngine
     void MoveCamera();
     void Controls();
     void ControlsEdit();
+
     void ControlsTextInput();
     void EditMouseScroll();
     void ControlsGameplay();
+
     bool PlayMusic(uint8_t musicIndex);
     bool PlaySounds();
     void RunDynamic();
@@ -335,8 +341,10 @@ class HelperEngine
     void DrawDynamic();
     void DrawText(TTF_Font* font, std::string text, SDL_Rect* textPosition, SDL_Colour* fontColour);
     void DrawInventory();
+
     void DrawInventoryActiveItem();
     void ShowHealth();
+
     void DrawAreas();
     void DrawTriggers();
 
@@ -352,6 +360,7 @@ class HelperEngine
     Dynamic* CreateDynamic(std::vector<std::string> dynamicVector);
     Trigger* CreateTrigger(std::vector<std::string> triggerVector, MapContainer* mapContainer);
     Item* CreateItemConfig(std::vector<std::string> itemVector);
+    
     Area* CreateArea(std::vector<std::string> areaVector, MapContainer* mapContainer);
     MapContainer* CreateMap(std::string name, std::string tileset);
 
