@@ -1,1 +1,191 @@
-Korbi and Doml
+Information ueber die Dateien
+
+Hauptordner ist helper
+
+helper
+    alle .dll Dateien werden nur fuer Windows gebraucht
+
+    helper_edit.exe - Windows Version fuer den Editor
+    helper.exe - Windows Version fuer das Game
+    helper - Linux Version (kann mit Parameter gestartet werden)
+
+    alle Haupt conig Dateien mit der Endung .config stehen fuer die Stats im Programm
+
+    font.ttf Datei fuer die eigene Schrift
+
+    trigger.png - Positionsymbol fuer den Editor
+    icon.png - fuer das Game
+    iventory_back.png - Inventar fuer das Game
+
+    weitere Order sind
+
+    documentation
+    titleset
+    music
+    basehelper
+    maps
+    dynamic
+    sounds
+    cpp
+
+helper/ducumentation
+    info.txt - Dokumentation fuer die Dateien mit Pfaden
+    map_hex.txt - Informationen ueber den Aufbau der Maps im Hexeditor
+
+helper/titleset
+    Die Texturen fuer das Game
+
+    cave
+        floor.png
+        item.png
+        wall.png
+    caveee
+        item.png
+        fllor.png
+        wall.png
+
+    dungeon
+        floor.png
+        item.png
+        wall.png
+
+    finlandia
+        item.png
+        wall.png
+        floor.png
+
+helper/music
+    Ingame sounds
+
+    honk.ogg
+    gondola.ogg
+    ievan.ogg
+
+helper/basehelper
+    Config Dateien fuer die eigene Map mit zusammenhaengenden Mapabschnitten
+
+    game.config
+    items.config
+    dynamictype.config
+
+helper/maps
+    alle Maps - der Aufbau ist immer gleich
+
+    apuhous
+    dungeon2
+    Dungeonn
+    stumpen
+    trumpen
+    cave2
+    ...
+
+helper/dynamics
+    alle Texturen fuer die Animationen
+
+    dynamic.png
+    gondola.png
+    door1.png
+    vampire.png
+    lever1.png
+    pressure_plate.png
+    door.png
+    npc.png
+    sentry_gun.png
+    spider.png
+    spurdoo.png
+    spider2.png
+    fireball.png
+    apu.png
+    rolling_stone.png
+    spurdo.png
+
+helper/sound
+    alle Sound Dateien fuer das Game
+
+    laser.wav
+    rock.wav
+    vampire_die.wav
+    inventory_open.wav
+    3543.mp3
+    spider_enemy_detected.wav
+    npc_die.wav
+    vampire_enemy_detected.wav
+    npc_enemy_detected.wav
+    door.wav
+    spider_die.wav
+    bech.wavpressure_plate.wav
+    fug.wav
+    rock_hit.wav
+
+helper/cpp
+    / Quellcode fuer das Game
+
+    weitere Ordner sind
+
+    map/
+        mapcontainer.h
+        map.h
+        map.cpp
+
+    helperengine/
+        helperengine_sound.cpp
+        helperengine_save.cpp
+        helperengine_runtime.cpp
+        helperengine_edit.cpp
+        helperengine_load.cpp
+        helperengine.h
+        helperengine_draw.cpp
+        helperengine_controls.cpp
+        helperengine.cpp
+
+    dynamic/
+        lever.helperengine
+        alldynamics.h
+        pressure_plate.h
+        dynamic_sounds.h
+        fireball.h
+        rolling_stone.h
+        vampire.h
+        sentry_gun.h
+        npc.h
+        spider.h
+        gondola.h
+        spurdo.h
+        door.h
+        lever.cpp
+        player.h
+        pressure_plate.cpp
+        fireball.cpp
+        sentry_gun.cpp
+        spurdo.cpp
+        gondola.cpp
+        spider.cpp
+        rolling_stone.cpp
+        npc.cpp
+        vampire.cpp
+        door.cpp
+        dynamic.h
+        player.cpp
+        dynamic_default.h
+        dynamic.cpp
+
+    question_box.cpp
+    question_box.h
+    weapon_inventory.h
+    functions.h
+    function.cpp
+    event.cpp
+    event.h
+    item.h
+    message_command.h
+    message_command.cpp
+    weapon.h
+    sound_command.h
+    textbox.h
+    sound_command.cpp
+    area.h
+    trigger.h
+    area.cpp
+    textbox.cpp
+    trigger.cpp
+    main.cpp
