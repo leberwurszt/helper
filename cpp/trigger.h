@@ -22,6 +22,25 @@
 #define TRIGGER_TARGET_AREA     0x0100
 #define TRIGGER_SCRIPT          0x0200
 
+enum 
+{
+    TRIGGER_MAP_TYPE,
+    TRIGGER_MAP_TITLE,
+    TRIGGER_MAP_NEW_MAP,
+    TRIGGER_MAP_NEW_X,
+    TRIGGER_MAP_NEW_Y,
+    TRIGGER_MAP_X,
+    TRIGGER_MAP_Y,
+    TRIGGER_MAP_SWITCH_MAP,
+    TRIGGER_MAP_CHANGE_STATE,
+    TRIGGER_MAP_TELEPORT,
+    TRIGGER_MAP_ON_CONTACT,
+    TRIGGER_MAP_ON_USE,
+    TRIGGER_MAP_SWITCH,
+    TRIGGER_MAP_STATE_1,
+    TRIGGER_MAP_STATE_2,
+    TRIGGER_MAP_TARGET_DYNAMIC
+};
 
 
 class Trigger
@@ -45,8 +64,8 @@ class Trigger
     bool active = false;
 
     Dynamic* targetDynamic = NULL;
-    int state1 = 0;
-    int state2 = 0;
+    uint8_t state1 = 0;
+    uint8_t  state2 = 0;
     
     Map* newMap = NULL;
 
@@ -58,8 +77,10 @@ class Trigger
     void SetPos(uint32_t x, uint32_t y);
 
     void SetTargetDynamic(Dynamic* targetDynamic);
-    void SetState1(int state);
-    void SetState2(int state);
+    void SetState1(uint8_t state);
+    void SetState2(uint8_t state);
+
+    void SetValues(std::map<uint16_t, std::string> values);
 
     std::string GetTitle();
     uint32_t GetX();
@@ -79,7 +100,9 @@ class Trigger
     std::string GetNewMap();
 
     std::vector<std::string> CreateConfig();
+    std::map<uint16_t, std::string> GetValues();
 
-    static Trigger* GetTriggerByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer);
+    static Trigger* GetTriggerByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer);
     static Trigger* GetTriggerByName(std::string name, MapContainer* mapContainer);
+
 };

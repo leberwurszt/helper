@@ -165,8 +165,8 @@ int HelperEngine::Run()
             DrawAreas();
             EditorInfo();
 
-            if(editDynamic)
-                EditDynamic();
+            if(dynamicEdit || triggerEdit)
+                DrawEditTable();
         }
 
         ShowMessage();
@@ -204,5 +204,7 @@ int HelperEngine::Run()
 // Ask user whether to quit
 void HelperEngine::AskQuit()
 {
-    run = false;
+    textPosition.x = 0;
+    textPosition.y = 0;
+    DrawText(font, "Really quit (Y/N)?", &textPosition, &fontColour);
 }

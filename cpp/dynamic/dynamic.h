@@ -118,6 +118,7 @@ class Dynamic
         uint8_t CheckObstacle(uint16_t x, uint16_t y);
 
         virtual bool Move(int16_t x, int16_t y);
+        virtual bool Move(Direction direction);
         virtual bool Attack(uint16_t x, uint16_t y, int16_t damage);
         virtual void Hit(Dynamic* sender, int16_t damage);
         virtual void Do();
@@ -129,8 +130,8 @@ class Dynamic
         virtual std::map<uint16_t, std::string> GetValues();
         virtual void SetValues(std::map<uint16_t, std::string> values);
 
-        static Dynamic* GetDynamicByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer);
-        static std::list<Dynamic*> GetDynamicsByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer);
+        static Dynamic* GetDynamicByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer);
+        static std::list<Dynamic*> GetDynamicsByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer);
         static Dynamic* GetDynamicByName(std::string name, MapContainer* mapContainer);
         static Dynamic* CreateDynamicFromType(uint16_t type, std::map<uint16_t, uint16_t> dynamicTypeMap, MapContainer* mapContainer, SoundCommand* soundCommand);
         static void SortDynamicList(MapContainer* mapContainer);

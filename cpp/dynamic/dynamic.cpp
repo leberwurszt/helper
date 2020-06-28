@@ -145,7 +145,7 @@ uint8_t Dynamic::GetSprite()
     return sprite;
 }
 
-Dynamic* Dynamic::GetDynamicByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer)
+Dynamic* Dynamic::GetDynamicByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer)
 {
     for(Dynamic* dynamic : mapContainer->dynamicList)
     {
@@ -155,7 +155,7 @@ Dynamic* Dynamic::GetDynamicByCoord(uint32_t x, uint32_t y, MapContainer* mapCon
     return NULL;
 }
 
-std::list<Dynamic*> Dynamic::GetDynamicsByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer)
+std::list<Dynamic*> Dynamic::GetDynamicsByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer)
 {
     std::list<Dynamic*> dynamicList;
     for(Dynamic* dynamic : mapContainer->dynamicList)
@@ -385,6 +385,31 @@ bool Dynamic::Move(int16_t x, int16_t y)
         }
     }
     return false;
+}
+
+bool Dynamic::Move(Direction direction)
+{
+    switch(direction)
+    {
+        case NORTH:
+            return Move(0, -1);
+            break;
+            
+        case EAST:
+            return Move(1, 0);
+            break;
+
+        case SOUTH:
+            return Move(0, 1);
+            break;
+
+        case WEST:
+            return Move(-1, 0);
+            break;
+
+        default:
+            return false;
+    }
 }
 
 void Dynamic::Do()

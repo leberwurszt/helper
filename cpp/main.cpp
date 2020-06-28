@@ -213,10 +213,10 @@ int main(int argc, char *argv[])
             if (mapContainer == NULL && editMode)
             {
                 std::cout << "Map " << mapName << " does not exist, creating..." << std::endl;
-                std::string tileset;
+                std::string tileset = "";
 
-                std::cout << "Tileset: ";
-                std::cin >> tileset;
+                //std::cout << "Tileset: ";
+                //std::cin >> tileset;
 
                 mapContainer = helper->CreateMap(mapName, tileset);
                 std::cout << "Map created." << std::endl;

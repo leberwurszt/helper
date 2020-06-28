@@ -219,11 +219,13 @@ class HelperEngine
     bool wallAlpha = false;
 
     Dynamic* dynamicEdit = NULL;
-    std::map<uint16_t, std::string> dynamicValues;
-    SDL_Rect* dynamicEditTableDescription = NULL;
-    SDL_Rect* dynamicEditTableValue = NULL;
+    Trigger* triggerEdit = NULL;
+    Area* areaEdit = NULL;
 
-    bool editDynamic = false;
+    std::map<uint16_t, std::string> editValues;
+    SDL_Rect* editTableDescription = NULL;
+    SDL_Rect* editTableValue = NULL;
+
     int16_t editDynamicInput = -1;
     Dynamic* dynamicMove = NULL;
     Dynamic* dynamicCopy = NULL;
@@ -264,9 +266,14 @@ class HelperEngine
 
     // helpful methods
     void FillMap(uint8_t tileType, uint8_t tileValue);
-    void EditDynamic();
+    void DrawEditTable();
+    void CreateEditTable(std::map<uint16_t, std::string> map);
     bool PrepareEditDynamic();
+    bool PrepareEditTrigger();
+    bool PrepareEditArea();
     void FinishEditDynamic();
+    void FinishEditTrigger();
+    void FinishEditArea();
 
     static Dynamic* CreateDynamicFromType(uint16_t type, std::map <uint16_t, uint16_t> dynamicTypeMap, MapContainer* mapContainer, SoundCommand* soundCommand);
     static Dynamic* CreateDynamicFromType(uint16_t type, std::map <uint16_t, uint16_t> dynamicTypeMap, std::string name, MapContainer* mapContainer, SoundCommand* soundCommand);
@@ -314,6 +321,8 @@ class HelperEngine
     void SetMusicVolume(uint8_t volume);
 
     void RemoveDynamic(Dynamic* dynamic);
+    void RemoveTrigger(Trigger* trigger);
+    void RemoveArea(Area* area);
     void RemoveMap(MapContainer* mapContainer);
 
     void DeleteMap(MapContainer* mapContainer);

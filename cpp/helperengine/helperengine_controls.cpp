@@ -22,8 +22,20 @@ void HelperEngine::Controls()
                     editInputType = EDIT_INPUT_TYPE_NONE;
                 else if(dynamicEdit)
                     FinishEditDynamic();
+                else if(triggerEdit)
+                    FinishEditTrigger();
                 else
                     askQuit = true;
+                break;
+            
+            case SDLK_y:
+                if(askQuit)
+                    run = false;
+                break;
+
+            case SDLK_n:
+                if(askQuit)
+                    askQuit = false;
                 break;
 
             default:
@@ -199,20 +211,16 @@ void HelperEngine::ControlsEdit()
             break;
 
         case SDL_BUTTON_LEFT:
-            if (askQuit)
-            {
-            }
-
-            if (editDynamic)
+            if(dynamicEdit || triggerEdit)
             {
                 editDynamicInput = -1;
-                for (uint16_t i = 0; i < dynamicValues.size(); i++)
+                for (uint16_t i = 0; i < editValues.size(); i++)
                 {
-                    if (mouseX > dynamicEditTableValue[i].x && mouseX < (dynamicEditTableValue[i].x + dynamicEditTableValue[i].w) && mouseY > dynamicEditTableValue[i].y && mouseY < (dynamicEditTableValue[i].y + dynamicEditTableValue[i].h))
+                    if (mouseX > editTableValue[i].x && mouseX < (editTableValue[i].x + editTableValue[i].w) && mouseY > editTableValue[i].y && mouseY < (editTableValue[i].y + editTableValue[i].h))
                     {
                         uint16_t k = 0;
 
-                        for (std::map<uint16_t, std::string>::iterator it = dynamicValues.begin(); it != dynamicValues.end(); ++it, ++k)
+                        for (std::map<uint16_t, std::string>::iterator it = editValues.begin(); it != editValues.end(); ++it, ++k)
                             if (k == i)
                                 editDynamicInput = it->first;
                     }
@@ -237,7 +245,7 @@ void HelperEngine::ControlsEdit()
         break;
     }
 
-    if(!editDynamic && !editInputType)
+    if(!dynamicEdit && !triggerEdit && !editInputType)
     {
         switch (event.type)
         {
@@ -267,12 +275,26 @@ void HelperEngine::ControlsEdit()
                 break;
 
             case SDLK_e: // Edit dynamic
+                FinishEditTrigger();
                 FinishEditDynamic();
-                editDynamic = PrepareEditDynamic();
+                PrepareEditDynamic();
                 break;
 
-            case SDLK_r: // Remove dynamic
-                RemoveDynamic(GetDynamicByCoord(mouseTileX, mouseTileY));
+            case SDLK_t: // Edit trigger
+                FinishEditDynamic();
+                FinishEditTrigger();
+                if (SDL_GetKeyboardState(NULL)[SDL_SCANCODE_LCTRL])
+                {
+                    Trigger* trigger = new Trigger("newTrigger", 0, mapContainer);
+                    trigger->SetPos(mouseTileX, mouseTileY);
+                    AddTrigger(trigger, mapContainer);
+                }
+                PrepareEditTrigger();
+                break;
+
+            case SDLK_r: // Remove dynamic or trigger
+                RemoveDynamic(Dynamic::GetDynamicByCoord(mouseTileX, mouseTileY, mapContainer));
+                RemoveTrigger(Trigger::GetTriggerByCoord(mouseTileX, mouseTileY, mapContainer));
                 break;
 
             case SDLK_b: // Copy dynamic
@@ -527,8 +549,10 @@ void HelperEngine::ControlsTextInput()
 
 
         case SDLK_RETURN:
-            if (editDynamic)
+            if (dynamicEdit)
                 FinishEditDynamic();
+            if (triggerEdit)
+                FinishEditTrigger();
 
             if(editInputType)
             {

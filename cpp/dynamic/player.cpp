@@ -29,6 +29,10 @@ void Player::Do()
 
         switch(state)
         {
+            case PLAYER_STATE_NULL:
+                sprite = 0;
+                break;
+
             case PLAYER_STATE_NORMAL:
                 switch(direction)
                 {

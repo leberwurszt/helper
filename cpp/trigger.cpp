@@ -82,12 +82,12 @@ void Trigger::SetTargetDynamic(Dynamic* targetDynamic)
     this->targetDynamic = targetDynamic;
 }
 
-void Trigger::SetState1(int state)
+void Trigger::SetState1(uint8_t state)
 {
     this->state1 = state;
 }
 
-void Trigger::SetState2(int state)
+void Trigger::SetState2(uint8_t state)
 {
     this->state2 = state;
 }
@@ -120,7 +120,7 @@ int Trigger::GetType()
     return type;
 }
 
-Trigger* Trigger::GetTriggerByCoord(uint32_t x, uint32_t y, MapContainer* mapContainer)
+Trigger* Trigger::GetTriggerByCoord(uint16_t x, uint16_t y, MapContainer* mapContainer)
 {
     for(Trigger* trigger : mapContainer->triggerList)
     {
@@ -169,4 +169,117 @@ std::vector<std::string> Trigger::CreateConfig()
     vector.push_back("new_y=" + std::to_string(newY));
 
     return vector;
+}
+
+std::map<uint16_t, std::string> Trigger::GetValues()
+{
+    std::map<uint16_t, std::string> values;
+
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_TITLE, title));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_X, std::to_string(x)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_Y, std::to_string(y)));
+
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_NEW_MAP, newMapName));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_NEW_X, std::to_string(newX)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_NEW_Y, std::to_string(newY)));
+
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_SWITCH_MAP, std::to_string((type & TRIGGER_SWITCH_MAP) != 0)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_SWITCH, std::to_string((type & TRIGGER_SWITCH) != 0)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_CHANGE_STATE, std::to_string((type & TRIGGER_CHANGE_STATE) != 0)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_TELEPORT, std::to_string((type & TRIGGER_TELEPORT) != 0)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_ON_CONTACT, std::to_string((type & TRIGGER_ON_CONTACT) != 0)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_ON_USE, std::to_string((type & TRIGGER_ON_USE) != 0)));
+
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_STATE_1, std::to_string(state1)));
+    values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_STATE_2, std::to_string(state2)));
+
+    if(targetDynamic)
+        values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_TARGET_DYNAMIC, targetDynamic->GetTitle()));
+    else
+        values.insert(std::pair<uint16_t, std::string>(TRIGGER_MAP_TARGET_DYNAMIC, ""));
+
+    return values;
+}
+
+void Trigger::SetValues(std::map<uint16_t, std::string> values)
+{
+    std::map<uint16_t, std::string>::iterator it = values.begin();
+    uint32_t newType = 0x00000000;
+
+    for(std::map<uint16_t, std::string>::iterator it = values.begin(); it != values.end(); it++)
+    {
+        try
+        {
+            switch(it->first)
+            {
+            case TRIGGER_MAP_TITLE:
+                title = it->second;
+                break;
+
+            case TRIGGER_MAP_X:
+                x = std::stoi(it->second);
+                break; 
+
+            case TRIGGER_MAP_Y:
+                y = std::stoi(it->second);
+                break;
+
+            case TRIGGER_MAP_NEW_MAP:
+                newMapName = it->second;
+                break;
+
+            case TRIGGER_MAP_NEW_X:
+                newX = std::stoi(it->second);
+                break;
+
+            case TRIGGER_MAP_NEW_Y:
+                newY = std::stoi(it->second);
+                break;
+
+            case TRIGGER_MAP_SWITCH_MAP:
+                newType += std::stoi(it->second) * TRIGGER_SWITCH_MAP;
+                break;
+
+            case TRIGGER_MAP_CHANGE_STATE:
+                newType += std::stoi(it->second) * TRIGGER_CHANGE_STATE;
+                break;
+
+            case TRIGGER_MAP_TELEPORT:
+                newType += std::stoi(it->second) * TRIGGER_TELEPORT;
+                break;
+
+            case TRIGGER_MAP_ON_CONTACT:
+                newType += std::stoi(it->second) * TRIGGER_ON_CONTACT;
+                break;
+
+            case TRIGGER_MAP_ON_USE:
+                newType += std::stoi(it->second) * TRIGGER_ON_USE;
+                break;
+
+            case TRIGGER_MAP_SWITCH:
+                newType += std::stoi(it->second) * TRIGGER_SWITCH;
+                break;
+
+            case TRIGGER_MAP_STATE_1:
+                state1 = std::stoi(it->second);
+                break;
+
+            case TRIGGER_MAP_STATE_2:
+                state2 = std::stoi(it->second);
+                break;
+
+            case TRIGGER_MAP_TARGET_DYNAMIC:
+                targetDynamic = Dynamic::GetDynamicByName(it->second, mapContainer);
+                break;
+
+                default:
+                    break;
+            }
+            type = newType;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+    }
 }

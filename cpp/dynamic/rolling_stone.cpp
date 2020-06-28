@@ -56,7 +56,6 @@ void RollingStone::Do()
                 
                 if(!dynamic->IsAlive())
                 {
-                    dynamic->SetState(0);
                     mapContainer->map->SetItem(x + moveX, y + moveY, 9);
                 }
                 else if(CheckObstacle(x + moveX, y + moveY))

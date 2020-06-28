@@ -822,16 +822,42 @@ MapContainer* HelperEngine::GetMapContainer()
 // removes a specified dynamic from list and deletes it
 void HelperEngine::RemoveDynamic(Dynamic* dynamic)
 {
-    if (dynamic != NULL && dynamic != mapContainer->player)
+    if (dynamic && dynamic != mapContainer->player)
     {
         mapContainer->dynamicList.erase(std::remove(mapContainer->dynamicList.begin(), mapContainer->dynamicList.end(), dynamic), mapContainer->dynamicList.end());
 
         if(dynamic == dynamicEdit)
-        {
-            editDynamic = false;
             dynamicEdit = NULL;
-        }
+
         delete dynamic;
+    }
+}
+
+// removes a specified trigger from list and deletes it
+void HelperEngine::RemoveTrigger(Trigger* trigger)
+{
+    if (trigger)
+    {
+        mapContainer->triggerList.erase(std::remove(mapContainer->triggerList.begin(), mapContainer->triggerList.end(), trigger), mapContainer->triggerList.end());
+
+        if(trigger == triggerEdit)
+            triggerEdit = NULL;
+            
+        delete trigger;
+    }
+}
+
+// removes a specified area from list and deletes it
+void HelperEngine::RemoveArea(Area* area)
+{
+    if (area)
+    {
+        mapContainer->areaList.erase(std::remove(mapContainer->areaList.begin(), mapContainer->areaList.end(), area), mapContainer->areaList.end());
+
+        if(area == areaEdit)
+            areaEdit = NULL;
+            
+        delete area;
     }
 }
 
@@ -1021,6 +1047,8 @@ void HelperEngine::EnumerateName(Dynamic* dynamic)
 MapContainer* HelperEngine::CreateMap(std::string name, std::string tileset)
 {
     MapContainer* mapContainer = new MapContainer();
+    
+    mapContainer->mapDir = name;
     mapContainer->map = new Map(64, 64);
     mapContainer->map->SetTitle(name);
 
