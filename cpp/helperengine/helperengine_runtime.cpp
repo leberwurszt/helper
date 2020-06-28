@@ -166,7 +166,7 @@ int HelperEngine::Run()
             EditorInfo();
 
             if(editDynamic)
-                EditDynamic(dynamicEdit);
+                EditDynamic();
         }
 
         ShowMessage();

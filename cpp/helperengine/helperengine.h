@@ -31,6 +31,7 @@
 #include "../area.h"
 #include "../event.h"
 #include "../textbox.h"
+#include "../config_table.h"
 
 // additional structures
 #include "../map/mapcontainer.h"
@@ -263,7 +264,7 @@ class HelperEngine
 
     // helpful methods
     void FillMap(uint8_t tileType, uint8_t tileValue);
-    void EditDynamic(Dynamic* dynamic);
+    void EditDynamic();
     bool PrepareEditDynamic();
     void FinishEditDynamic();
 

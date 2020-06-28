@@ -83,7 +83,7 @@ bool HelperEngine::PrepareEditDynamic()
 }
 
 // edit menu for dynamic
-void HelperEngine::EditDynamic(Dynamic* dynamic)
+void HelperEngine::EditDynamic()
 {
     if(!dynamicEdit)
     {
