@@ -1,4 +1,5 @@
 Helper Quest
+by Leberwurszt and KorbiFraiser
 
 compile it just with typing:
 	make
