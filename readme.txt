@@ -34,6 +34,8 @@ Controls:
 	
 Editor controls (edit mode):
 	E: edit dynamic (enemies etc.)
+	T: edit trigger
+	CTRL + T: new trigger
 	P: set tile
 	CTRL + S: save
 	CTRL + SHIFT + S: save as...
