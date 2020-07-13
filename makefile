@@ -108,14 +108,6 @@ helper_OBJS += $(SOURCE_DIR)/dynamic/vampire.o
 helper_OBJS += $(SOURCE_DIR)/dynamic/gondola.o
 helper_OBJS += $(SOURCE_DIR)/dynamic/spider.o
 
-
-define newline
-
-
-endef
-
-
-
 %.o: %.cpp
 	@echo $<
 	@$(COMPILER) -c -o $@ $< $(COMPILER_FLAGS)
@@ -124,12 +116,6 @@ endef
 all: $(helper_OBJS)
 	@$(COMPILER) -o $(BINARY_NAME) $(helper_OBJS) $(LIBS)
 	@echo Done.
-
-
-
-#	$(foreach F,$(helper_SOURCE),$(newline)echo "${F}" >> $@;)
-#	@for s in $(helper_SOURCE); do $(COMPILER) -c $$s $(COMPILER_FLAGS); echo $$s; done
-
 
 clean:
 	@rm $(foreach F,$(helper_OBJS),$F)
