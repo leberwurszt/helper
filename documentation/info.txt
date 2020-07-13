@@ -1,21 +1,21 @@
-Information ueber die Dateien
+Information über die Dateien
 
 Hauptordner ist helper
 
 helper
-    alle .dll Dateien werden nur fuer Windows gebraucht
+    alle .dll Dateien werden nur für Windows gebraucht
 
-    helper_edit.exe - Windows Version fuer den Editor
-    helper.exe - Windows Version fuer das Game
+    helper_edit.exe - Windows Version für den Editor
+    helper.exe - Windows Version für das Game
     helper - Linux Version (kann mit Parameter gestartet werden)
 
-    alle Haupt conig Dateien mit der Endung .config stehen fuer die Stats im Programm
+    alle Haupt config Dateien mit der Endung .config stehen für die Stats im Programm
 
-    font.ttf Datei fuer die eigene Schrift
+    font.ttf Datei für die eigene Schrift
 
-    trigger.png - Positionsymbol fuer den Editor
-    icon.png - fuer das Game
-    iventory_back.png - Inventar fuer das Game
+    trigger.png - Positionsymbol für den Editor
+    icon.png - für das Game
+    iventory_back.png - Inventar für das Game
 
     weitere Order sind
 
@@ -29,8 +29,8 @@ helper
     cpp
 
 helper/ducumentation
-    info.txt - Dokumentation fuer die Dateien mit Pfaden
-    map_hex.txt - Informationen ueber den Aufbau der Maps im Hexeditor
+    info.txt - Dokumentation für die Dateien mit Pfaden
+    map_hex.txt - Informationen über den Aufbau der Maps im Hexeditor
 
 helper/titleset
     Die Texturen fuer das Game
@@ -62,7 +62,7 @@ helper/music
     ievan.ogg
 
 helper/basehelper
-    Config Dateien fuer die eigene Map mit zusammenhaengenden Mapabschnitten
+    Config Dateien für die eigene Map mit zusammenhängenden Mapabschnitten
 
     game.config
     items.config
@@ -80,7 +80,7 @@ helper/maps
     ...
 
 helper/dynamics
-    alle Texturen fuer die Animationen
+    alle Texturen für die Animationen
 
     dynamic.png
     gondola.png
@@ -100,7 +100,7 @@ helper/dynamics
     spurdo.png
 
 helper/sound
-    alle Sound Dateien fuer das Game
+    alle Sound Dateien für das Game
 
     laser.wav
     rock.wav
@@ -118,7 +118,7 @@ helper/sound
     rock_hit.wav
 
 helper/cpp
-    / Quellcode fuer das Game
+    / Quellcode für das Game
 
     weitere Ordner sind
 
